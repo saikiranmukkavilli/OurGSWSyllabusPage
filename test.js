@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs'); //hello@
 // make sure to have correct json file here otherwise error will occur
 fs.readFile('index.json', 'utf8', function (err, data) {
     if (err){
