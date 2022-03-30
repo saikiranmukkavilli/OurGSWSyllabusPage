@@ -24,7 +24,8 @@ Credit Hrs JSON.parse(classes).Classes.CREDIT_HOURS;
 var emp_name, email, phone, building, office;
 
 //Class variables
-var CRN, subj_Code, courseNum, title, days, time, cLocation, instructor, cType, hrs;
+var CRN, subj_Code, courseNum,
+title, days, time, cLocation, instructor, cType, hrs;
 
 function button(){
     var searchtxt = document.getElementById("search-input").value;
