@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Create Object from JSON String</h2>
+
+<p id="demo"></p>
+
+<script>
+fetch("Classes.json")
+.then(response => response.json())
+.then(data => {
+console.log(data)
+/*document.getElementById("demo").innerHTML =
+data.employees[1].SSBSECT_SUBJ_CODE + " " + data.employees[1].INSTRUCTOR;*/
+for(i=0;i<data.employees.length;i++){
+document.write('<h1>' + data.employees[i].SSBSECT_SUBJ_CODE +  "\t" + data.employees[i].SSBSECT_CRSE_NUMB + '</h1>');
+document.write('<li>'+data.employees[i].SSBSECT_PTRM_CODE+ "\t" + data.employees[i].COURSE_TITLE + "\t" +  data.employees[i].INSTRUCTOR +'</li>');
+document.write('<li>'+data.employees[i].CLASS_TIME+ "\t" + data.employees[i].LOCATION + "\t" +  data.employees[i].METHOD + '</li>');
+document.write('<li>'+data.employees[i].CREDIT_HOURS+"\t" +  data.employees[i].OPEN_SEATS + "\t" + data.employees[i].TOTAL_SEATS+ "\t" + data.employees[i].SUBJ_CODE +'</li>');
+}
+})
+</script>
+</body>
+</html>
