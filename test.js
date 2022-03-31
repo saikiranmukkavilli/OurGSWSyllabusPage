@@ -1,63 +1,90 @@
-var fs = require('fs'); //hello@
-// make sure to have correct json file here otherwise error will occur
-fs.readFile('index.json', 'utf8', function (err, data) {
-    if (err){
-        console.log(err);
-    }
-    else {
-        // Select department from faculty at index 0
-        console.log(JSON.parse(data).faculty[0].departments);
-        
-       /* Select CRN from Classes array at index 0
-        console.log(JSON.parse(data).Classes[0].SSBSECT_CRN);]
-        */
-    }
-}) 
-
 /*
-search crn 
-    give instructor perry, shannon
-    in index.json shannon perry
-    perry, shannon = shannon perry
+Needed attributes from index:
+Full Name  JSON.parse(index).faculty.fullName;
+Email      JSON.parse(index).faculty.email;
+Phone #    JSON.parse(index).faculty.phone;
+Building   JSON.parse(index).building;
+RoomNum    JSON.parse(index).faculty.roomNum;
+
+Needed attributes from Classes2022:
+CRN        JSON.parse(classes).Classes.SSBSECT_CRN;
+Subj_Code  JSON.parse(classes).Classes.SSBSECT_CODE;
+Course #   JSON.parse(classes).Classes.SSBSECT_NUMB;
+Title      JSON.parse(classes).Classes.COURSE_TITLE;
+Days       JSON.parse(classes).Classes.DAYS;
+Class Time JSON.parse(classes).Classes.CLASS_TIME;
+Location   JSON.parse(classes).Classes.LOCATION;
+Instructor JSON.parse(classes).Classes.INSTRUCTOR;
+(try to link with index to get info)
+Class type JSON.parse(classes).Classes.METHOD;
+Credit Hrs JSON.parse(classes).Classes.CREDIT_HOURS;
 */
-/*
-const searchBtn = document.querySelector('#search-btn');
 
-searchBtn.onclick = function (){
-    const searchValue = document.querySelector('#search-input').value;
+//Faculty Variables
+var emp_name, email, phone, building, office;
 
-    fetch('http://localhost:5000/search/'+ searchValue)
+//Class variables
+var CRN, subj_Code, courseNum,
+title, days, time, cLocation, instructor, cType, hrs;
+
+function button(){
+    var searchtxt = document.getElementById("search-input").value;
+
+    fetch('index.json')
     .then(response => response.json())
-    .then(data => loadHTMLTable(data['data']));
+    .then(data => {
+        
+        emp_name = JSON.stringify(data.faculty.fullName);
+        email = JSON.stringify(data.faculty.email);
+        phone =JSON.stringify(data.faculty.phone);
+        building = JSON.stringify(data.faculty.building);
+        office = JSON.stringify(data.faculty.roomNum);
+    });
+
+    fetch('Classes2022.json')
+    .then(response => response.json())
+    .then(data => {
+    
+    CRN = JSON.stringify(data.Classes.SSBSECT_CRN);
+    subj_Code = JSON.stringify(data.Classes.SSBSECT_CRN);
+    courseNum = JSON.stringify(data.Classes.SSBSECT_CRN);
+    title = JSON.stringify(data.Classes.SSBSECT_CRN);
+    days = JSON.stringify(data.Classes.SSBSECT_CRN);
+    time = JSON.stringify(data.Classes.SSBSECT_CRN);
+    cLocation= JSON.stringify(data.Classes.SSBSECT_CRN);
+    instructor= JSON.stringify(data.Classes.SSBSECT_CRN);
+    cType= JSON.stringify(data.Classes.SSBSECT_CRN);
+    hrs= JSON.stringify(data.Classes.SSBSECT_CRN);
+    Create();
+    });
+
 }
 
-//search
-app.get('/search/:TYPE' , (request, response) => {
-    const { FIRST_NAME } = request.params;
-    const db = dbService.getDbServiceInstance();
-   
-    const result = db.searchByType(FIRST_NAME);
-       
-       result
-       .then(data => response.json({data : data}))
-       .catch(err => console.log(err));
-   })
+function Create(){
+    var div = document.getElementById('demo');
+    var para = document.createElement('p');
+    var node = document.createTextNode("");
 
-   async searchByType(TYPE){
-    try {
-        const response  = await new Promise((resolve, reject) => {
-            const query = "SELECT * FROM weapons WHERE TYPE = ?;";
 
-            connection.query(query, [TYPE], (err, results) => {
-                if (err) reject(new Error(err.message));
-                resolve(results);
-            })
-        });
-        return response;
-    }catch(error){
+    para.appendChild(node);
+    div.appendChild(para);
+}
 
-    console.log(error);
+var clickCounter = 0;
+
+function Reset(){
+    
+    clickCounter += 1;
+
+    if (clickCounter == 1)
+        alert("WARNING!!!This will completely reset your form.\n"+
+        "You will have to enter all data again.\n"+
+        "If you are sure you want to delete your work click delete again.");
+
+    else if (clickCounter == 2){
+        location.reload()
+        clickCounter = 0;
     }
 }
-}
-*/
+
+//foreach loop to search through 
